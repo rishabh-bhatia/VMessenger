@@ -11,7 +11,7 @@ import Firebase
 import SwiftKeychainWrapper
 
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var emailField: UITextField!
     
@@ -19,10 +19,26 @@ class LoginVC: UIViewController {
     
     var userUid: String!
     
+    var activeTextField : UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+        
+
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -30,6 +46,8 @@ class LoginVC: UIViewController {
             performSegue(withIdentifier: "toMessages" , sender: nil)
         }
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSignUp" {
@@ -68,5 +86,7 @@ class LoginVC: UIViewController {
             })
         }
     }
+    
+    
 
 }

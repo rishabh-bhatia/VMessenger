@@ -32,6 +32,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
         
         imagePicker = UIImagePickerController()
         
@@ -39,6 +41,21 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         
         imagePicker.allowsEditing = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        usernameField.resignFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let _ = KeychainWrapper.standard.string(forKey: "uid") {
+            performSegue(withIdentifier: "toMessages" , sender: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
