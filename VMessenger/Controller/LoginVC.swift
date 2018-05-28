@@ -24,8 +24,32 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let _ = KeychainWrapper.standard.string(forKey: "uid") {
+            performSegue(withIdentifier: "toMessages" , sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSignUp" {
+            if let destination = segue.destination as? SignUpVC {
+                if self.userUid != nil {
+                    destination.userUid = userUid
+                }
+                
+                if self.emailField.text != nil {
+                    destination.emailField = emailField.text
+                }
+                
+                if self.passwordField.text != nil {
+                    destination.passwordField = passwordField.text
+                }
+        }
+    }
+    }
 
-    @IBAction func SignIn (_sender: AnyObject)
+        @IBAction func SignIn (_ sender: AnyObject)
     {
         if let email = emailField.text, let password = passwordField.text
         {
@@ -35,11 +59,11 @@ class LoginVC: UIViewController {
                     
                     KeychainWrapper.standard.set(self.userUid, forKey: "uid")
                     
-                    performSegue(withIdentifier: "toMessages", sender: nil)
+                    self.performSegue(withIdentifier: "toMessages", sender: nil)
                 }
                 
                 else{
-                    performSegue(withIdentifier: "toSignUp", sender: nil)
+                    self.performSegue(withIdentifier: "toSignUp", sender: nil)
                 }
             })
         }

@@ -33,6 +33,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QB-BR-6zr">
                                 <rect key="frame" x="135" y="648" width="105" height="30"/>
                                 <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="SignIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2f-vL-AQM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,12 +78,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1SN-ac-tgI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183" y="37"/>
+            <point key="canvasLocation" x="946" y="36"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign UpVC-->
         <scene sceneID="XBs-Jw-diI">
             <objects>
-                <viewController id="o8d-j9-8fJ" sceneMemberID="viewController">
+                <viewController id="o8d-j9-8fJ" customClass="SignUpVC" customModule="VMessenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QL0-ko-zp1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,6 +94,9 @@
                                     <constraint firstAttribute="height" constant="30" id="HrI-jh-J3p"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancel:" destination="o8d-j9-8fJ" eventType="touchUpInside" id="i7w-ma-zmC"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jMQ-7S-vfw">
                                 <rect key="frame" x="30" y="425" width="315" height="30"/>
@@ -101,6 +107,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keX-v8-mua">
                                 <rect key="frame" x="105" y="665" width="164" height="30"/>
                                 <state key="normal" title="Create Account"/>
+                                <connections>
+                                    <action selector="createAccount:" destination="o8d-j9-8fJ" eventType="touchUpInside" id="AKc-Zx-SB4"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8g2-rN-4t7">
                                 <rect key="frame" x="123" y="173" width="128" height="128"/>
@@ -112,6 +121,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibo-nX-53u">
                                 <rect key="frame" x="123" y="173" width="128" height="128"/>
                                 <state key="normal" title="Add Photo"/>
+                                <connections>
+                                    <action selector="selectedImagePicker:" destination="o8d-j9-8fJ" eventType="touchUpInside" id="P5R-9m-OBA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -134,10 +146,19 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MTm-ei-wjl"/>
                     </view>
+                    <connections>
+                        <outlet property="signUpBtn" destination="keX-v8-mua" id="ZaE-Hm-HuV"/>
+                        <outlet property="userImagePicker" destination="8g2-rN-4t7" id="2VO-uO-G9Q"/>
+                        <outlet property="usernameField" destination="jMQ-7S-vfw" id="HPA-B0-igN"/>
+                        <segue destination="G6f-a0-moj" kind="show" identifier="toMessages" id="KMF-mr-wXs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="REr-Sy-xHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="795.81280788177344"/>
+            <point key="canvasLocation" x="33" y="1228"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="KIt-9g-Jmv"/>
+    </inferredMetricsTieBreakers>
 </document>

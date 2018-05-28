@@ -12,19 +12,148 @@ import FirebaseDatabase
 import FirebaseStorage
 import SwiftKeychainWrapper
 
-class SignUpVC: UIViewController {
+class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet weak var userImagePicker: UIImageView!
+    
+    @ IBOutlet weak var usernameField: UITextField!
+    
+    @IBOutlet weak var signUpBtn: UIButton!
+    
+    var userUid: String!
+    var username: String!
+    var emailField: String!
+    var passwordField: String!
+    var imagePicker: UIImagePickerController!
+    var imageSelected = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        imagePicker = UIImagePickerController()
+        
+        imagePicker.delegate = self
+        
+        
+        imagePicker.allowsEditing = true
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+            
+            userImagePicker.image = image
+            imageSelected = true
+        }
+        
+        else {
+            print("No image has been Selected. Please select an Image.")
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func setUser(img: String){
+        
+        let userData = [
+            "username" : username!,
+            "userImg": img
+        ]
+        
+        KeychainWrapper.standard.set(userUid, forKey: "uid")
+        
+        let location = Database.database().reference().child("users").child(userUid)
+        
+        location.setValue(userData)
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func uploadImg(){
+        if usernameField.text == nil{
+            signUpBtn.isEnabled = false
+        }
+        
+        else{
+            username = usernameField.text
+            
+            signUpBtn.isEnabled = true
+        }
+        
+        guard let img = userImagePicker.image, imageSelected == true
+        
+            else {
+                
+                print ("Please select an Image")
+                
+                return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img,0.2){
+            
+            let imgUid = NSUUID().uuidString
+            
+            let metadata = StorageMetadata()
+            
+            metadata.contentType = "image/jpeg"
+            
+            Storage.storage().reference().child(imgUid).putData(imgData, metadata: metadata)
+            {
+                (metadata, error) in
+                if error != nil {
+                    print("Image can't be uploaded")
+                }
+                
+                else {
+                    print("Upload successful!")
+                    
+                    let  downloadURL = metadata?.downloadURL()?.absoluteString
+                    
+                    if let  url = downloadURL {
+                        
+                        self.setUser(img: url)
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if let _ = KeychainWrapper.standard.string(forKey:  "uid"){
+            performSegue(withIdentifier: "toMessage", sender: nil)
+        }
+    }
+    
+    @IBAction func createAccount(_ sender: AnyObject){
+        Auth.auth().createUser(withEmail: emailField, password: passwordField, completion: {(user, error)in
+            
+            if error != nil {
+                print("Sorry,  User can't be created!")
+            }
+            
+            else
+            {
+                if let user = user {
+                    self.userUid = user.uid
+                }
+            }
+            
+            self.uploadImg()
+        })
+    }
+    
+    @IBAction func  cancel ( _ sender: AnyObject){
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func selectedImagePicker( _ sender: AnyObject){
+        present(imagePicker, animated: true , completion: nil )
+    }
 
     /*
     // MARK: - Navigation
