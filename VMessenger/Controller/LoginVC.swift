@@ -11,16 +11,17 @@ import Firebase
 import SwiftKeychainWrapper
 
 
-class LoginVC: UIViewController, UITextViewDelegate {
+class LoginVC: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet var scrollview: UIScrollView!
 
     @IBOutlet weak var emailField: UITextField!
     
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak  var passwordField: UITextField!
     
     var userUid: String!
     
     var activeTextField : UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +30,30 @@ class LoginVC: UIViewController, UITextViewDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
-        
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+            scrollview.setContentOffset(CGPoint(x: 0, y: 300), animated: true)
+        
+    }
+    
+    /*func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollview.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }*/
+    
+    /*func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+            emailField.becomeFirstResponder()
+            passwordField.resignFirstResponder()
+        return true
+    }*/
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+   @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
     }
@@ -46,8 +63,6 @@ class LoginVC: UIViewController, UITextViewDelegate {
             performSegue(withIdentifier: "toMessages" , sender: nil)
         }
     }
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSignUp" {

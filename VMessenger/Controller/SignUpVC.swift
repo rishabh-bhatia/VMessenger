@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import SwiftKeychainWrapper
 
-class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var userImagePicker: UIImageView!
     
@@ -39,8 +39,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         imagePicker.delegate = self
         
-        
         imagePicker.allowsEditing = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,6 +52,22 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         usernameField.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
