@@ -15,9 +15,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var scrollview: UIScrollView!
 
+    @IBOutlet weak var emailField1: NSLayoutConstraint!
     @IBOutlet weak var emailField: UITextField!
     
     @IBOutlet weak  var passwordField: UITextField!
+    @IBOutlet weak var passwordField1: NSLayoutConstraint!
     
     var userUid: String!
     
@@ -28,29 +30,33 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-        self.view.addGestureRecognizer(tapGesture)
+       self.view.addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-            scrollview.setContentOffset(CGPoint(x: 0, y: 300), animated: true)
+    
+    @objc func handleKeyboardNotification(notification: Notification) {
+      //self.scrollview.isScrollEnabled = false
+        self.scrollview.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
+        }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        
+        self.scrollview.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
     }
     
-    /*func textFieldDidEndEditing(_ textField: UITextField) {
-        scrollview.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-    }*/
-    
-    /*func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-            emailField.becomeFirstResponder()
-            passwordField.resignFirstResponder()
-        return true
-    }*/
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
+   /* override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }*/
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        passwordField.resignFirstResponder()
+        emailField.resignFirstResponder()
+        return true
     }
     
    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
