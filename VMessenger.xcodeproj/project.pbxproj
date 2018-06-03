@@ -15,6 +15,9 @@
 		184416ED2096C7B700D26B0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184416EC2096C7B700D26B0A /* GoogleService-Info.plist */; };
 		1882E2B820C2F62900228FAA /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882E2B720C2F62900228FAA /* MessagesCell.swift */; };
 		1882E2BA20C2F6EB00228FAA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882E2B920C2F6EB00228FAA /* Message.swift */; };
+		1882E2BE20C4196500228FAA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882E2BD20C4196500228FAA /* SearchVC.swift */; };
+		1882E2C020C41ADC00228FAA /* searchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882E2BF20C41ADC00228FAA /* searchCell.swift */; };
+		1882E2C220C41B9400228FAA /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882E2C120C41B9400228FAA /* Search.swift */; };
 		1889B05120C27D5400982FA9 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889B05020C27D5400982FA9 /* ChatVC.swift */; };
 		1889B05320C2813300982FA9 /* messageDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889B05220C2813300982FA9 /* messageDetailCell.swift */; };
 		1889B05520C281F700982FA9 /* MessageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889B05420C281F700982FA9 /* MessageDetail.swift */; };
@@ -34,6 +37,9 @@
 		184416EC2096C7B700D26B0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1882E2B720C2F62900228FAA /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
 		1882E2B920C2F6EB00228FAA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1882E2BD20C4196500228FAA /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		1882E2BF20C41ADC00228FAA /* searchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchCell.swift; sourceTree = "<group>"; };
+		1882E2C120C41B9400228FAA /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		1889B05020C27D5400982FA9 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		1889B05220C2813300982FA9 /* messageDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageDetailCell.swift; sourceTree = "<group>"; };
 		1889B05420C281F700982FA9 /* MessageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetail.swift; sourceTree = "<group>"; };
@@ -95,6 +101,7 @@
 			children = (
 				1889B05420C281F700982FA9 /* MessageDetail.swift */,
 				1882E2B920C2F6EB00228FAA /* Message.swift */,
+				1882E2C120C41B9400228FAA /* Search.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,6 +111,7 @@
 			children = (
 				1889B05220C2813300982FA9 /* messageDetailCell.swift */,
 				1882E2B720C2F62900228FAA /* MessagesCell.swift */,
+				1882E2BF20C41ADC00228FAA /* searchCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +123,7 @@
 				18E6D51720B2C0B0005CBB15 /* SignUpVC.swift */,
 				1889B05020C27D5400982FA9 /* ChatVC.swift */,
 				1889B05820C296A800982FA9 /* MessageVC.swift */,
+				1882E2BD20C4196500228FAA /* SearchVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -264,7 +273,10 @@
 				1882E2BA20C2F6EB00228FAA /* Message.swift in Sources */,
 				18E6D51820B2C0B0005CBB15 /* SignUpVC.swift in Sources */,
 				1889B05920C296A800982FA9 /* MessageVC.swift in Sources */,
+				1882E2C020C41ADC00228FAA /* searchCell.swift in Sources */,
+				1882E2BE20C4196500228FAA /* SearchVC.swift in Sources */,
 				1882E2B820C2F62900228FAA /* MessagesCell.swift in Sources */,
+				1882E2C220C41B9400228FAA /* Search.swift in Sources */,
 				1889B05520C281F700982FA9 /* MessageDetail.swift in Sources */,
 				184416DB2095E81700D26B0A /* AppDelegate.swift in Sources */,
 			);

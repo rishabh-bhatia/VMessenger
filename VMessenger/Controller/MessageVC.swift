@@ -139,7 +139,7 @@ class MessageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                     "recipient": recipient as AnyObject
                 ]
                 
-                let recipientmessage: Dictionary<String, AnyObject> = [
+                let recipientMessage: Dictionary<String, AnyObject> = [
                     "lastmessage": messageField.text as AnyObject,
                     "recipient": currentUser as AnyObject
                 ]
@@ -151,15 +151,59 @@ class MessageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 firebaseMessage.setValue(post)
                 
                 
-                let recipientMessage = Database.database().reference().child("users").child(recipient).child("messages").child(messageId)
+                let recipentMessage = Database.database().reference().child("users").child(recipient).child("messages").child(messageId)
                 
-                recipientMessage.setValue(recipientMessage)
+                recipentMessage.setValue(recipientMessage)
                 
                 let userMessage = Database.database().reference().child("users").child(currentUser!).child("messages").child(messageId)
                 
-                userMessage.setValue(post)
+                userMessage.setValue(message)
+                
+                loadData()
             }
+            
+            else if messageId != "" {
+                
+                let post: Dictionary<String, AnyObject> = [
+                    "message": messageField.text as AnyObject,
+                    "sender": recipient as AnyObject
+                ]
+                
+                let message: Dictionary<String, AnyObject> = [
+                    "lastmessage": messageField.text as AnyObject,
+                    "recipient": recipient as AnyObject
+                ]
+                
+                let recipientMessage: Dictionary<String, AnyObject> = [
+                    "lastmessage": messageField.text as AnyObject,
+                    "recipient": currentUser as AnyObject
+                ]
+                
+                let firebaseMessage = Database.database().reference().child("messages").child(messageId).childByAutoId()
+                
+                firebaseMessage.setValue(post)
+                
+                let recipentMessage = Database.database().reference().child("users").child(recipient).child("messages").child(messageId)
+                
+                recipentMessage.setValue(recipientMessage)
+                
+                let userMessage = Database.database().reference().child("users").child(currentUser!).child("messages").child(messageId)
+                
+                userMessage.setValue(message)
+                
+                loadData()
+                
+            }
+            
+            messageField.text = ""
         }
+        
+        moveToBottom()
+    }
+    
+    @IBAction func backPressed (_ sender: AnyObject) {
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 
