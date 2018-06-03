@@ -250,7 +250,7 @@
                                 <rect key="frame" x="0.0" y="114" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="nME-X1-ITr">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="nME-X1-ITr" customClass="MessagesCell" customModule="VMessenger" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nME-X1-ITr" id="XxG-Uz-zJs">
@@ -258,10 +258,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZK-Sc-dWs">
-                                                    <rect key="frame" x="23" y="11" width="16" height="36"/>
+                                                    <rect key="frame" x="23" y="11" width="178" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BaO-Ee-hfI">
-                                                            <rect key="frame" x="8" y="8" width="0.0" height="20"/>
+                                                            <rect key="frame" x="8" y="8" width="162" height="20"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="17"/>
                                                             <color key="textColor" red="1" green="0.96177141067120175" blue="0.96550812651998541" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -305,6 +305,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="2rp-EF-p5Q" secondAttribute="trailing" constant="8" id="zq3-6w-rBI"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="receivedMessageLbl" destination="BaO-Ee-hfI" id="Prr-Em-iod"/>
+                                            <outlet property="receivedMessageView" destination="GZK-Sc-dWs" id="xh6-Sw-AcC"/>
+                                            <outlet property="sentMessageLbl" destination="oWt-CV-Ee9" id="E8O-Ho-F4z"/>
+                                            <outlet property="sentMessageView" destination="2rp-EF-p5Q" id="Pje-ka-uMb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
