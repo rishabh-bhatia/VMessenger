@@ -25,6 +25,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var messageId: String!
     
+    //Setting up tableview Delegates and accessing Data from the account
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,7 +52,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            self.tableView.reloadData()
+            self.tableView.reloadData()//Refreshes the table view
         })
     }
     
@@ -59,6 +60,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         return 1
     }
+    //S
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -80,6 +82,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         recipient = messageDetail[indexPath.row].recipient
@@ -88,7 +91,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         performSegue(withIdentifier: "toMessages", sender: nil)
     }
-    
+    //Prepares for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let destinationViewController = segue.destination as? MessageVC {
@@ -98,7 +101,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             destinationViewController.messageId = messageId
         }
     }
-    
+    //Signing out if the button is pressed
     @IBAction func signOut(_ sender: AnyObject) {
         
         try! Auth.auth().signOut()

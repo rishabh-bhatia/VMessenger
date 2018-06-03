@@ -126,7 +126,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             recipient = searchDetail[indexPath.row].userKey
         }
         
-        performSegue(withIdentifier: "toMessage", sender: indexPath.row)
+        performSegue(withIdentifier: "toMessage", sender: nil)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

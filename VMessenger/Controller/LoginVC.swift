@@ -29,19 +29,19 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))//Close Keyboard
        self.view.addGestureRecognizer(tapGesture)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)//When the keyboard opens
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)//When keyboard Hides
     }
-    
+    //Scrolls screen upwards
     @objc func handleKeyboardNotification(notification: Notification) {
       //self.scrollview.isScrollEnabled = false
         self.scrollview.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
         }
-    
+    //Brings scrolled screen back down whenKeyboard closes
     @objc func keyboardWillHide(notification: Notification) {
         
         self.scrollview.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -52,24 +52,24 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }*/
-    
+    //closes keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         passwordField.resignFirstResponder()
         emailField.resignFirstResponder()
         return true
     }
-    
+    //closes keyboard
    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
     }
-    
+    //On screen
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.standard.string(forKey: "uid") {
             performSegue(withIdentifier: "toMessages" , sender: nil)
         }
     }
-    
+    //Preparing for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSignUp" {
             if let destination = segue.destination as? SignUpVC {
@@ -87,7 +87,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     }
-
+//Authorising data
         @IBAction func SignIn (_ sender: AnyObject)
     {
         if let email = emailField.text, let password = passwordField.text

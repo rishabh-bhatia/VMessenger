@@ -41,22 +41,22 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         imagePicker.allowsEditing = true
     }
-    
+    //Keyboard handeling
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    
+    //Keyboard handeling
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
         usernameField.resignFirstResponder()
     }
-    
+    //preparing for segue
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.standard.string(forKey: "uid") {
             performSegue(withIdentifier: "toMessages" , sender: nil)
         }
     }
-    
+    //To choose profile picture for new account
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
             
@@ -71,6 +71,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    //Setting up the username
     func setUser(img: String){
         
         let userData = [
@@ -87,6 +88,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         dismiss(animated: true, completion: nil)
         
     }
+    
+    //Uploads the image to firebase
     
     func uploadImg(){
         if usernameField.text == nil{
@@ -138,7 +141,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             }
         }
     }
-    
+    //Performing Segue to another View Controller
     override func viewDidDisappear(_ animated: Bool) {
         if let _ = KeychainWrapper.standard.string(forKey:  "uid"){
             performSegue(withIdentifier: "toMessage", sender: nil)
@@ -162,11 +165,11 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             self.uploadImg()
         })
     }
-    
+    //To cancel registeration
     @IBAction func  cancel ( _ sender: AnyObject){
         dismiss(animated: true, completion: nil)
     }
-    
+    //Choosing Image
     @IBAction func selectedImagePicker( _ sender: AnyObject){
         present(imagePicker, animated: true , completion: nil )
     }

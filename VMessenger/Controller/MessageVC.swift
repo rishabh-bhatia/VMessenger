@@ -44,8 +44,8 @@ class MessageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             loadData()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow , object: nil)
-          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide , object: nil)
+        /*NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow , object: nil)
+          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide , object: nil)*/
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         
@@ -56,7 +56,7 @@ class MessageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         }
     }
     
-    @objc func keyboardWillShow(notify: NSNotification) {
+  /*  @objc func keyboardWillShow(notify: NSNotification) {
         if let keyboardSize = (notify.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y -= keyboardSize.height
@@ -70,7 +70,7 @@ class MessageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
-    }
+    }*/
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
